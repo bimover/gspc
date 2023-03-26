@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ufwb version="1.24">
+    <grammar name="GSPC grammar" start="id:1" author="bimover" fileextension="gspc">
+        <description>Grammar for GSPC files</description>
+        <structure name="gspc" id="1" length="0" encoding="ISO_8859-1:1987" endian="little" signed="no">
+            <description>gspc stands for &quot;graphisoft point cloud&quot; and is a format for storing point clouds in graphisoft archicad.
+
+each datapoint has three spatial coordinates x, y, z and three color channels red, green and blue</description>
+            <structure name="header" id="2">
+                <string name="signature" id="3" strokecolor="FF00FF" type="fixed-length" length="4" encoding="ANSI_X3.4-1968">
+                    <description>this is a signature to indicate this is a gspc file</description>
+                </string>
+                <number name="version" id="4" strokecolor="00FFFF" type="integer" length="4">
+                    <description>not sure about that, but it could be a version number or just padding</description>
+                </number>
+                <structure name="xxyyzz" id="5" signed="yes">
+                    <description>at the begining are always the smallest and biggest points of the dataset with their actual values in the order x1, xn, y1, yn, z1, zn</description>
+                    <number name="x-min" id="6" strokecolor="FF0000" type="float" length="4">
+                        <description>this is the smallest x-value of all points</description>
+                    </number>
+                    <number name="x-max" id="7" strokecolor="FF0000" type="float" length="4">
+                        <description>this is the biggest x-value of all points</description>
+                    </number>
+                    <number name="y-min" id="8" strokecolor="00FF00" type="float" length="4">
+                        <description>this is the smallest y-value of all points</description>
+                    </number>
+                    <number name="y-max" id="9" strokecolor="00FF00" type="float" length="4">
+                        <description>this is the biggest y-value of all points</description>
+                    </number>
+                    <number name="z-min" id="10" strokecolor="0000FF" type="float" length="4">
+                        <description>this is the smallest z-value of all points</description>
+                    </number>
+                    <number name="z-max" id="11" strokecolor="0000FF" type="float" length="4">
+                        <description>this is the biggest z-value of all points</description>
+                    </number>
+                </structure>
+            </structure>
+            <structure name="body" id="14">
+                <structure name="datapoint" id="15" repeatmax="-1">
+                    <structure name="xyz" id="16">
+                        <number name="x-coordinate" id="17" strokecolor="FF0000" type="float" length="4">
+                            <description>this coordinate is not stored as the actual value, but as the difference to x-min in the header</description>
+                        </number>
+                        <number name="y-coordinate" id="18" strokecolor="00FF00" type="float" length="4">
+                            <description>this coordinate is not stored as the actual value, but as the difference to y-min in the header</description>
+                        </number>
+                        <number name="z-coordinate" id="19" strokecolor="0000FF" type="float" length="4">
+                            <description>this coordinate is not stored as the actual value, but as the difference to z-min in the header</description>
+                        </number>
+                    </structure>
+                    <structure name="rgb" id="21">
+                        <number name="channel-red" id="22" strokecolor="FF0000" type="integer" length="1"/>
+                        <number name="channel-green" id="23" strokecolor="00FF00" type="integer" length="1"/>
+                        <number name="channel-blue" id="24" strokecolor="0000FF" type="integer" length="1"/>
+                    </structure>
+                </structure>
+            </structure>
+        </structure>
+    </grammar>
+</ufwb>
